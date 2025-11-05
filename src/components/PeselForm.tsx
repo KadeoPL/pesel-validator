@@ -40,21 +40,20 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
   }
 
   return (
-    <div className="w-full">
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+    <div>
+      <div className="grid grid-cols-6 sm:grid-cols-11  gap-2 sm:gap-3 justify-center ">
         {peselDigits.map((digit, index) => (
-          <div key={index}>
-            <input
-              className="w-10 h-10 sm:w-12 sm:h-12 text-center border border-indigo-300 rounded-md md:font-text-lg lg:text-2xl focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
-              type="text"
-              maxLength={1}
-              value={digit}
-              ref={(el) => {
-                inputRefs.current[index] = el;
-              }}
-              onChange={(e) => handleChange(e, index)}
-            />
-          </div>
+          <input
+            key={index}
+            className="w-10 xl:w-12 aspect-square text-center border border-indigo-300 rounded-md md:font-text-lg lg:text-2xl focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
+            type="text"
+            maxLength={1}
+            value={digit}
+            ref={(el) => {
+              inputRefs.current[index] = el;
+            }}
+            onChange={(e) => handleChange(e, index)}
+          />
         ))}
       </div>
       <div className="w-full flex justify-center mt-10">

@@ -16,7 +16,7 @@ function App() {
 
   return (
     <main className="w-svw h-svh bg-indigo-50 flex items-center justify-center px-6">
-      <div className="w-full md:w-2/3 bg-white flex flex-col justify-center py-16 rounded-2xl drop-shadow-xl">
+      <div className="w-full md:w-2/3 max-w-[800px] bg-white flex flex-col py-16 px-5 sm:px-10 rounded-2xl drop-shadow-xl">
         <h1 className="text-center text-2xl font-semibold">Validate PESEL</h1>
         <h3 className="text-center text-gray-400 mb-10">
           Enter 11 digits below and press <span>Check</span>
