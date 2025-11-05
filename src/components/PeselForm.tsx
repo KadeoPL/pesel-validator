@@ -61,7 +61,7 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
       </div>
       <div className="w-full flex justify-center mt-10">
         <button
-          className="py-2 px-4 bg-sky-950 text-white"
+          className="py-4 px-8 bg-indigo-500 text-white rounded-2xl font-light "
           onClick={handleSubmit}
         >
           Check PESEL
