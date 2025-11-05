@@ -4,10 +4,14 @@ import { validatePesel } from "./utils/validatePesel";
 
 function App() {
   const [result, setResult] = useState<string | null>(null);
+  const messages = {
+    valid: "✅ Valid PESEL",
+    invalid: "❌ Invalid PESEL",
+  };
 
   function handlePeselSubmit(digits: string[]) {
     const isValid = validatePesel(digits);
-    setResult(isValid ? "✅ PESEL poprawny" : "❌ PESEL niepoprawny");
+    setResult(isValid ? messages.valid : messages.invalid);
   }
 
   return (
