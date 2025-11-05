@@ -1,18 +1,24 @@
 import PeselForm from "./components/PeselForm";
 import { useState } from "react";
+import { validatePesel } from "./utils/validatePesel";
 
 function App() {
-  const [pesel, setPesel] = useState<string[]>([]);
+  const [result, setResult] = useState<string | null>(null);
+
+  function handlePeselSubmit(digits: string[]) {
+    const isValid = validatePesel(digits);
+    setResult(isValid ? "✅ PESEL poprawny" : "❌ PESEL niepoprawny");
+  }
 
   return (
     <main className="w-svw h-svh bg-indigo-50 flex items-center justify-center px-6">
-      <div className="w-1/2 bg-white flex flex-col  justify-center py-6 rounded-2xl drop-shadow-xl">
+      <div className="w-full md:w-2/3 bg-white flex flex-col justify-center py-16 rounded-2xl drop-shadow-xl">
         <h1 className="text-center text-2xl font-semibold">Validate PESEL</h1>
-        <h3 className="text-center text-gray-400 font-medium mb-6">
+        <h3 className="text-center text-gray-400 mb-10">
           Enter 11 digits below and press <span>Check</span>
         </h3>
-        <PeselForm onSubmit={setPesel} />
-        {pesel && <div>{pesel}</div>}
+        <PeselForm onSubmit={handlePeselSubmit} />
+        {result && <div className="text-center mt-4">{result}</div>}
       </div>
     </main>
   );

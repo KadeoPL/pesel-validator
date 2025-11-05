@@ -1,16 +1,12 @@
-import React, {
-  useState,
-  useRef,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import React, { useState, useRef } from "react";
 
 interface PeselFormProps {
-  onSubmit: Dispatch<SetStateAction<string[]>>;
+  onSubmit: (digits: string[]) => void;
 }
 
 export default function PeselForm({ onSubmit }: PeselFormProps) {
   const [peselDigits, setPeselDigits] = useState<string[]>(Array(11).fill(""));
+  const [erorr, setError] = useState<string | null>("");
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -20,6 +16,7 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>, index: number) {
     const digit = e.currentTarget.value;
+    setError(null);
 
     if (digit !== "" && !/^\d$/.test(digit)) return;
 
@@ -35,19 +32,20 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
   }
 
   function handleSubmit() {
-    onSubmit(peselDigits);
+    if (peselDigits.every((d) => d.trim() !== "")) {
+      onSubmit(peselDigits);
+    } else {
+      setError(`Please fill in all fields`);
+    }
   }
 
   return (
-    <div>
-      <div className="flex gap-1 md:gap-2 justify-center items-center px-6">
+    <div className="w-full">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
         {peselDigits.map((digit, index) => (
-          <div
-            key={index}
-            className="w-7 md:w-10 lg:w-16 aspect-square bg-white border-2 border-sky-200"
-          >
+          <div key={index}>
             <input
-              className="w-full h-full text-center text-base md:font-text-lg lg:text-2xl focus:outline-2 focus:outline-offset-2 focus:outline-sky-500"
+              className="w-10 h-10 sm:w-12 sm:h-12 text-center border border-indigo-300 rounded-md md:font-text-lg lg:text-2xl focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
               type="text"
               maxLength={1}
               value={digit}
@@ -67,6 +65,7 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
           Check PESEL
         </button>
       </div>
+      {erorr && <p className="text-center text-red-400 mt-4">{erorr}</p>}
     </div>
   );
 }
