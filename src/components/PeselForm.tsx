@@ -39,6 +39,16 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
     }
   }
 
+  function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
+    const pasted = e.clipboardData.getData("text").trim();
+
+    if (/^\d{11}$/.test(pasted)) {
+      e.preventDefault();
+      const digits = pasted.split("");
+      setPeselDigits(digits);
+    }
+  }
+
   return (
     <div>
       <div className="grid grid-cols-6 sm:grid-cols-11  gap-2 sm:gap-3 justify-center ">
@@ -53,6 +63,7 @@ export default function PeselForm({ onSubmit }: PeselFormProps) {
               inputRefs.current[index] = el;
             }}
             onChange={(e) => handleChange(e, index)}
+            onPaste={(e) => handlePaste(e)}
           />
         ))}
       </div>
